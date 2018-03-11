@@ -17,6 +17,11 @@ class Selection extends React.Component{
         
        
     }
+    componentWillReceiveProps(nextProp){
+        alert(nextProp.correctAnswer.name);
+        this.setState({answer:nextProp.correctAnswer.name});
+        
+    }
     
     render(){
         
@@ -24,17 +29,22 @@ class Selection extends React.Component{
         return (
             <div className="selectWrapper">
                     
-                    <input type="radio" onClick={this.handleClick} value="answer1"name="answer"/> An1
-                    <input type="radio" onClick={this.handleClick} value="answer2"name="answer"/> An2
-                    <input type="radio" onClick={this.handleClick} value="answer3"name="answer"/> An3
-                    <input type="radio" onClick={this.handleClick} value="answer4"name="answer"/> An4
-                    <input type="button" value="Guess" />
+                <input type="radio" onClick={this.handleClick} value="answer1"name="answer"/> An1
+                <input type="radio" onClick={this.handleClick} value="answer2"name="answer"/> An2
+                <input type="radio" onClick={this.handleClick} value="answer3"name="answer"/> An3
+                <input type="radio" onClick={this.handleClick} value="answer4"name="answer"/> An4
+                <input type="button" value="Guess" />
                     
         
             </div>
             );
     }
 }
+
+/*Selection.defaultProps ={
+    country: {},
+    answer: {}
+}*/
 
 
 export default Selection;

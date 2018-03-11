@@ -5,21 +5,31 @@ import "./main.css";
 import axios from 'axios';
 
 //var imgURL="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUINP1UMay2F4mgO9vfgMtcyzb3NQRXjmFp8CdZOTNtQPfwdHkfA";
-var flag;
+/*
+// 0 -> 10
+Math.floor(Math.random() * 11);
+*/
 
 class Main extends React.Component{
     constructor(props){
         super(props);
         this.state={
             countries:[]
+            
         }
+    }
+    randomNumber(){
+        var valueR=Math.floor(Math.random()*251);
+        return valueR;
     }
     
     componentDidMount(){
+        var seed=this.randomNumber();
         var url= 'https://restcountries.eu/rest/v2/all';
         axios.get(url)
         .then(function (response) {
-         this.setState({countries:response.data});
+         this.setState({countries:response.data, random:seed, name:response.data[seed].name});
+         
           
          }.bind(this));
         
@@ -28,10 +38,13 @@ class Main extends React.Component{
    
     
     render(){
+        var country=this.state.countries[this.state.random];
+        var world=this.state.countries;
+        
         return (
                 <div className="mainWrapper">
-                <Selection />
-                <Flag pic={this.state.countries[0]}/>
+                <Selection name={world} correctAnswer={country}/>
+                <Flag pic={country}/>
                 </div>
             );
     }
