@@ -6,25 +6,30 @@ import "./selection.css";
 // 0 -> 10
 Math.floor(Math.random() * 11);
 */
-var answer="stuff";
+var resultMessage;
 var selections=[];
 class Selection extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            choice:""
+            choice:"",
+            correct:false
         }
         this.handleClick=this.handleClick.bind(this);
     }
     handleClick(e){
-        var answer=e.target.value;
+       var answer=e.target.value;
         
-        this.setState({choice:answer});
+       this.setState({choice:answer});
        if(answer!== this.state.answer){
-           alert("incorrect");
+           resultMessage="Incorrect Guess";
+           this.setState({correct:true});
+           //alert("incorrect");
        }
        else{
-           alert("correct");
+           //alert("correct");
+           resultMessage="Correct";
+           this.setState({correct:true});
        }
         
        
@@ -47,14 +52,29 @@ class Selection extends React.Component{
     }
     
     render(){
+        
+        var answerSelection = (
+                <div>
+                <input type="radio" onClick={this.handleClick} value={this.state.answer} name="answer"/> {this.state.answer}
+                <input type="radio" onClick={this.handleClick} value={selections[0]} name="answer"/> {selections[0]}
+                <input type="radio" onClick={this.handleClick} value={selections[1]} name="answer"/> {selections[1]}
+                <input type="radio" onClick={this.handleClick} value={selections[2]} name="answer"/> {selections[2]}
+                </div>
+            );
+            
+        var messageAlert = (
+                    <div className="correctMessage">
+                    <h1>{resultMessage}</h1>
+                    <input type="button" value="Next" />
+                    </div>
+            );
+        
+        
         return (
             <div className="selectWrapper">
                     
-            <input type="radio" onClick={this.handleClick} value={this.state.answer} name="answer"/> {this.state.answer}
-            <input type="radio" onClick={this.handleClick} value={selections[0]} name="answer"/> {selections[0]}
-            <input type="radio" onClick={this.handleClick} value={selections[1]} name="answer"/> {selections[1]}
-            <input type="radio" onClick={this.handleClick} value={selections[2]} name="answer"/> {selections[2]}
-            <input type="button" value="Guess" />
+                {this.state.correct===true ? messageAlert: answerSelection}
+            
                     
         
             </div>
@@ -69,3 +89,15 @@ class Selection extends React.Component{
 
 
 export default Selection;
+
+/*
+
+<input type="radio" onClick={this.handleClick} value={this.state.answer} name="answer"/> {this.state.answer}
+                <input type="radio" onClick={this.handleClick} value={selections[0]} name="answer"/> {selections[0]}
+                <input type="radio" onClick={this.handleClick} value={selections[1]} name="answer"/> {selections[1]}
+                <input type="radio" onClick={this.handleClick} value={selections[2]} name="answer"/> {selections[2]}
+
+
+
+
+*/
