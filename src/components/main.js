@@ -17,10 +17,23 @@ class Main extends React.Component{
             countries:[]
             
         }
+        this.resetGame=this.resetGame.bind(this);
     }
     randomNumber(){
         var valueR=Math.floor(Math.random()*251);
         return valueR;
+    }
+    
+    resetGame(){
+        var seed=this.randomNumber();
+        var url= 'https://restcountries.eu/rest/v2/all';
+        axios.get(url)
+        .then(function (response) {
+         this.setState({countries:response.data, random:seed, name:response.data[seed].name});
+         
+          
+         }.bind(this));
+    
     }
     
     componentDidMount(){
@@ -43,7 +56,7 @@ class Main extends React.Component{
         
         return (
                 <div className="mainWrapper">
-                <Selection name={world} correctAnswer={country}/>
+                <Selection name={world} correctAnswer={country} reset={this.resetGame}/>
                 <Flag pic={country}/>
                 </div>
             );

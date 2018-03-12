@@ -16,6 +16,7 @@ class Selection extends React.Component{
             correct:false
         }
         this.handleClick=this.handleClick.bind(this);
+        this.handleReset=this.handleReset.bind(this);
     }
     handleClick(e){
        var answer=e.target.value;
@@ -33,6 +34,10 @@ class Selection extends React.Component{
        }
         
        
+    }
+    handleReset(){
+        this.props.reset();
+        this.setState({correct:false});
     }
     componentWillReceiveProps(nextProps){
         //alert(nextProps.correctAnswer.name);
@@ -65,7 +70,7 @@ class Selection extends React.Component{
         var messageAlert = (
                     <div className="correctMessage">
                     <h1>{resultMessage}</h1>
-                    <input type="button" value="Next" />
+                    <input onClick={this.handleReset} type="button" value="Next" />
                     </div>
             );
         
